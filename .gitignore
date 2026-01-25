@@ -1,0 +1,9 @@
+# --- IGNORE BACKEND SECRETS ---
+venv/
+__pycache__/
+*.pyc
+.env
+
+# --- IGNORE FRONTEND JUNK ---
+node_modules/
+dist/
