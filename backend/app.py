@@ -31,7 +31,7 @@ def get_search_query(text):
         clean_query = " ".join(keywords)
         return clean_query 
     else:
-        return "global top 50" # Fallback if they typed nothing useful
+        return "global top 50"
 
 @app.route('/recommend', methods=['POST'])
 def recommend():
@@ -41,14 +41,14 @@ def recommend():
 
     print(f"\n--- REQUEST: {mood} ---")
 
-    # 1. Use the Smart Extractor
+    
     search_query = get_search_query(mood)
     print(f"🔎 Extracted Keywords: '{search_query}'")
 
     try:
         sp = spotipy.Spotify(auth=user_token)
         
-        # 2. Search Spotify
+        
         results = sp.search(q=search_query, limit=10, type='track')
         
         songs = []
@@ -61,11 +61,11 @@ def recommend():
                     "link": track['external_urls']['spotify']
                 })
         
-        print(f"✅ Found {len(songs)} songs for query: {search_query}")
+        print(f" Found {len(songs)} songs for query: {search_query}")
         return jsonify(songs)
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
         return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':

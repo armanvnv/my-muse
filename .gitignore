@@ -3,7 +3,7 @@ venv/
 __pycache__/
 *.pyc
 .env
-
+.cache
 # --- IGNORE FRONTEND JUNK ---
 node_modules/
 dist/

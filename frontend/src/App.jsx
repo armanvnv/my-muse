@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-// Added "RiCloseCircleLine" for the close button
 import { FiHome, FiMusic, FiHeart, FiSettings, FiSearch, FiActivity } from "react-icons/fi";
 import { RiNeteaseCloudMusicLine, RiSparklingFill, RiRobot2Line, RiCloseCircleLine } from "react-icons/ri";
 
@@ -13,7 +12,7 @@ function App() {
   const [songs, setSongs] = useState([]);
   const [status, setStatus] = useState("Enter your vibe above to get started.");
   
-  // NEW: State to track which song is playing
+
   const [currentSong, setCurrentSong] = useState(null);
 
   const handleSearch = async () => {
@@ -21,7 +20,7 @@ function App() {
     
     setStatus("✨ Aura AI is curating your vibe...");
     setSongs([]);
-    setCurrentSong(null); // Close player on new search
+    setCurrentSong(null);
     
     try {
       const res = await axios.post('http://127.0.0.1:5000/recommend', {
@@ -32,7 +31,7 @@ function App() {
       setStatus("Results for: " + mood);
     } catch (err) {
       console.error(err);
-      setStatus("❌ Error. Token expired or backend down.");
+      setStatus("Error. Token expired or backend down.");
     }
   };
 
@@ -40,7 +39,7 @@ function App() {
     if (e.key === 'Enter') handleSearch();
   };
 
-  // NEW: Helper to extract Track ID from the Spotify Link
+  
   const playSong = (link) => {
     // Link format: https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC
     // We need just the ID: 4uLU6hMCjMI75M1A2tKUQC
@@ -50,7 +49,7 @@ function App() {
 
   return (
     <div className="dashboard">
-      {/* --- SIDEBAR --- */}
+      
       <aside className="sidebar">
         <div className="logo">
           <RiNeteaseCloudMusicLine size={28} /> 
@@ -70,7 +69,7 @@ function App() {
         </ul>
       </aside>
 
-      {/* --- MAIN CONTENT --- */}
+      
       <main className="main-content">
         <header className="top-bar">
           <div className="search-container">
@@ -81,7 +80,7 @@ function App() {
               placeholder="Ask AI: 'I need energy for the gym...'"
               value={mood}
               onChange={(e) => setMood(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
             />
           </div>
           <button className="search-btn" onClick={handleSearch}>
@@ -103,7 +102,7 @@ function App() {
           </div>
         </section>
 
-        {/* --- NEW: EMBEDDED PLAYER --- */}
+        
         {currentSong && (
           <div className="player-container">
              <button className="close-player" onClick={() => setCurrentSong(null)}>
